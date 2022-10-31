@@ -1,0 +1,62 @@
+<div *ngIf='loading' id="myModal" class="modal">
+    <div class="lds-roller">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/list-customer">List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/add-customer">Create New</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div>
+        <h3 class=" mt-3 mb-5">List of Customer</h3>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="thead-dark" style="border-bottom: 1px solid black; height: 50px; vertical-align: middle;">
+                <th>Customer Name</th>
+                <th>Customer IC Number</th>
+                <th>Customer Phone Number</th>
+                <th>Customer Email</th>
+                <th colspan="2">Action</th>
+            </thead>
+            <tbody>
+                <!-- <tr class="d-flex justify-content-center" colspan="6">
+                    <div class="spinner-border" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                </tr> -->
+                <tr *ngFor="let cust of customers">
+                    <td>{{cust.name}}</td>
+                    <td>{{cust.ic}}</td>
+                    <td>{{cust.phone}}</td>
+                    <td>{{cust.email}}</td>
+                    <td><a [routerLink]="['/edit/',cust.id]">Edit</a></td>
+                    <td><button class="btn btn-danger" (click)="delCust(cust.id)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

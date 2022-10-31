@@ -1,0 +1,88 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/list-customer">List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/add-customer">Create New</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12 my-3"><h3>Add New Customer</h3></div>
+    </div>
+
+    <form [formGroup]="newCustForm" (ngSubmit)="postData(newCustForm)" autocomplete="off">
+        <div class="row py-2">
+            <div class="col-md-6 col-lg-3">Customer Name</div>
+            <div class="col-md-6 col-lg-3">
+                <input type="text" name="name" class="form-control" required  minlength="5" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                    <div *ngIf="f.name.errors.required">Name is required</div>
+                    <div *ngIf="f.name.errors.minlength">Name must be at least 5 characters long.</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row py-2">
+            <div class="col-md-6 col-lg-3">Customer IC Number</div>
+            <div class="col-md-6 col-lg-3">
+                <input type="text" name="ic" required  maxlength="12" (keypress)="forceNumber($event)" (input)="checkIC($event)" class="form-control" formControlName="ic" [ngClass]="{ 'is-invalid': submitted && f.ic.errors }">
+                <div *ngIf="submitted && f.ic.errors" class="invalid-feedback">
+                    <div *ngIf="f.ic.errors.required">IC Number is required</div>
+                    <div *ngIf="f.ic.errors.pattern || f.ic.errors.maxlength || f.ic.errors.minlength">IC number must have 12 numbers </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="extraInfo">
+            <div class="row py-2">
+                <div class="col-md-6 col-lg-3">Age</div>
+                <div class="col-md-6 col-lg-3">
+                    <input type="text" value={{age}} disabled readonly style="cursor: context-menu;">
+                </div>
+            </div>
+            <div class="row py-2">
+                <div class="col-md-6 col-lg-3">Gender</div>
+                <div class="col-md-6 col-lg-3">
+                    <input type="text" value={{gender}} disabled readonly style="cursor: context-menu;">
+                </div>
+            </div>
+        </div>
+        
+        <div class="row py-2">
+            <div class="col-md-6 col-lg-3">Customer Phone Number</div>
+            <div class="col-md-6 col-lg-3">
+                <input type="text" name="phone" class="form-control" minlength="10"  maxlength="12" (keypress)="forceNumber($event)" formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
+                <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                    <div *ngIf="f.phone.errors.required">Phone number is required</div>
+                    <div *ngIf="f.phone.errors.pattern || f.phone.errors.maxlength || f.phone.errors.minlength">Phone number must be at least 10 numbers </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row py-2">
+            <div class="col-md-6 col-lg-3">Customer Email</div>
+            <div class="col-md-6 col-lg-3">
+                <input type="email" name="email" class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Email is required</div>
+                    <div *ngIf="f.email.errors.email">Enter the correct email</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row py-2">
+            <div class="col-md-6"><input type="submit"  class="btn btn-warning" name="submit"></div>
+        </div>
+    </form>
+</div>
